@@ -1,0 +1,15 @@
+    <div class="col-6 text-uppercase fw-bold">Clases</div>
+    <table class="table table-sm w-auto">
+        <thead>
+            <tr>
+                <th class="px-2">Actividad</th>
+                <th class="px-2">Reservas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let b of (reservas$ | async)">
+                <td class="px-2">{{b.actividad}}</td>
+                <td class="px-2">{{b.reserva}}</td>
+            </tr>
+        </tbody>
+    </table>

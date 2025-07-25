@@ -1,0 +1,42 @@
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Actividad</th>
+            <th>Profesor</th>
+            <th>Horario</th>
+            <th>Precio</th>
+            <th>cupos</th>
+            <th>lugares a reservar</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let clase of class" class="table-light" [ngClass]="{'enPromocion': clase.enPromocion}">
+        <td>{{clase.actividad}}</td>
+        <td>{{clase.instructor}}</td>
+        <td>{{clase.fecha}}</td>
+        <td>{{clase.precio| currency}}</td>
+        <!-- "se muestra que no hay lugares disponibles" si la cantidad de cupos es cero, 
+        pero si la cantidad de cupos es distinta de cero si se muestran-->
+        <td *ngIf="clase.cupos == 0; else hayLugares">
+            <span class="badge text-bg-danger">No hay más lugares</span>
+        </td>
+        <ng-template #hayLugares>
+            <td>
+                <span class="badge text-bg-success">cupos dispónibles {{clase.cupos}}</span>
+            </td>
+        </ng-template>
+        <!--template de la cantidad de cupos que se quieren reservar, si no se puede reservar
+        muetra un template vacio-->
+        <td *ngIf="clase.cupos != 0; else noSePuedeReservar">
+            <app-input-number [(quantity)]="clase.reserva" [max]="clase.cupos" ></app-input-number>
+            <button class="btn " (click)="addToCart(clase)">RESERVAR</button>
+        </td>
+        <ng-template #noSePuedeReservar>
+            <td>
+
+            </td>
+        </ng-template>
+
+    </tr>
+    <tbody>
+</table>
